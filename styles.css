@@ -1,0 +1,429 @@
+/* ==========================================================
+   Personal CV - Bashar Ayman Elazony
+   Design of Web-Based Systems, Assignment 1
+   ----------------------------------------------------------
+   1. Design tokens   4. Header / hero    7. Tags & lists
+   2. Base            5. Navigation       8. Contact
+   3. Layout          6. Cards & entries  9. Footer, responsive, print
+   ========================================================== */
+
+/* ---------- 1. Design tokens ---------- */
+:root {
+  --color-primary: #0f766e;       /* teal */
+  --color-primary-dark: #115e59;
+  --color-navy: #0b1f3a;
+  --color-navy-soft: #1e3a8a;
+  --color-text: #1f2937;
+  --color-muted: #64748b;
+  --color-bg: #f1f5f9;
+  --color-surface: #ffffff;
+  --color-border: #e2e8f0;
+  --color-tag-bg: #e6f4f1;
+
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-heading: "Merriweather", Georgia, "Times New Roman", serif;
+
+  --radius: 14px;
+  --shadow: 0 4px 18px rgba(15, 23, 42, 0.07);
+  --space: 1.5rem;
+}
+
+/* ---------- 2. Base ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 4rem; /* keeps headings clear of the sticky nav */
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--color-text);
+  background: var(--color-bg);
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  line-height: 1.25;
+}
+
+p {
+  margin: 0 0 1rem;
+}
+
+a {
+  color: var(--color-primary);
+  text-underline-offset: 3px;
+}
+
+a:hover {
+  color: var(--color-primary-dark);
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 3px;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+.skip-link {
+  position: absolute;
+  left: -999px;
+  top: 0.5rem;
+  z-index: 100;
+  padding: 0.5rem 1rem;
+  background: var(--color-surface);
+  border-radius: 6px;
+}
+
+.skip-link:focus {
+  left: 0.5rem;
+}
+
+/* ---------- 3. Layout ---------- */
+.container {
+  width: min(100% - 2rem, 900px);
+  margin-inline: auto;
+}
+
+main.container {
+  display: grid;
+  gap: var(--space);
+  padding-block: 2rem 3rem;
+}
+
+/* ---------- 4. Header / hero ---------- */
+.hero {
+  background: linear-gradient(135deg, var(--color-navy) 0%, var(--color-navy-soft) 55%, var(--color-primary) 130%);
+  color: #fff;
+}
+
+.hero__inner {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+  padding-block: 3.5rem 3rem;
+}
+
+.hero__photo {
+  flex: none;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 5px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+.hero__eyebrow {
+  margin: 0 0 0.35rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #99f6e4;
+}
+
+.hero h1 {
+  font-family: var(--font-heading);
+  font-size: clamp(2.2rem, 5vw, 3.2rem);
+}
+
+.hero__title {
+  margin: 0.5rem 0 0.25rem;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.hero__meta {
+  margin-bottom: 1.5rem;
+  color: #cbd5e1;
+  font-size: 0.95rem;
+}
+
+.button {
+  display: inline-block;
+  padding: 0.65rem 1.4rem;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--color-navy);
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.button:hover {
+  background: #ccfbf1;
+  color: var(--color-navy);
+  transform: translateY(-2px);
+}
+
+/* ---------- 5. Navigation ---------- */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgba(11, 31, 58, 0.96);
+  backdrop-filter: blur(6px);
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.25rem 1.25rem;
+  margin: 0;
+  padding: 0.5rem 0;
+  list-style: none;
+}
+
+.nav a {
+  display: block;
+  padding: 0.35rem 0.5rem;
+  color: #e2e8f0;
+  font-size: 0.92rem;
+  font-weight: 500;
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+}
+
+.nav a:hover {
+  color: #fff;
+  border-bottom-color: #5eead4;
+}
+
+/* ---------- 6. Cards & entries ---------- */
+.card {
+  padding: 1.75rem 2rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.card > h2 {
+  margin-bottom: 1.1rem;
+  padding-bottom: 0.6rem;
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+  color: var(--color-navy);
+  border-bottom: 3px solid var(--color-primary);
+  width: fit-content;
+}
+
+.card > p:last-child {
+  margin-bottom: 0;
+}
+
+.entry + .entry {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px dashed var(--color-border);
+}
+
+.entry__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.entry h3 {
+  font-size: 1.1rem;
+  color: var(--color-navy);
+}
+
+.entry__date {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-primary-dark);
+  background: var(--color-tag-bg);
+  padding: 0.15rem 0.7rem;
+  border-radius: 999px;
+}
+
+.entry__sub {
+  margin: 0.15rem 0 0.7rem;
+  color: var(--color-muted);
+  font-size: 0.93rem;
+}
+
+/* ---------- 7. Tags & lists ---------- */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tags li {
+  padding: 0.25rem 0.85rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--color-primary-dark);
+  background: var(--color-tag-bg);
+  border-radius: 999px;
+}
+
+.skills {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem 2rem;
+}
+
+.skills h3 {
+  margin-bottom: 0.6rem;
+  font-size: 1rem;
+  color: var(--color-navy);
+}
+
+.list {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+.list li {
+  margin-bottom: 0.5rem;
+}
+
+.list li::marker {
+  color: var(--color-primary);
+}
+
+/* ---------- 8. Contact ---------- */
+.contact {
+  display: grid;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.contact li {
+  display: flex;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  background: var(--color-bg);
+  border-radius: 10px;
+}
+
+.contact__label {
+  flex: none;
+  width: 5.5rem;
+  font-weight: 600;
+  color: var(--color-navy);
+}
+
+.contact a {
+  overflow-wrap: anywhere;
+}
+
+/* ---------- 9. Footer, responsive, print ---------- */
+.footer {
+  padding-block: 1.5rem;
+  background: var(--color-navy);
+  color: #cbd5e1;
+  font-size: 0.9rem;
+}
+
+.footer .container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.footer p {
+  margin: 0;
+}
+
+.footer a {
+  color: #99f6e4;
+}
+
+@media (max-width: 720px) {
+  .hero__inner {
+    flex-direction: column;
+    text-align: center;
+    gap: 1.5rem;
+    padding-block: 2.5rem 2rem;
+  }
+
+  .hero__photo {
+    width: 160px;
+    height: 160px;
+  }
+
+  .card {
+    padding: 1.4rem 1.25rem;
+  }
+
+  .skills {
+    grid-template-columns: 1fr;
+  }
+
+  .contact li {
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
+  .footer .container {
+    justify-content: center;
+    text-align: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .button {
+    transition: none;
+  }
+}
+
+@media print {
+  .nav,
+  .button,
+  .skip-link,
+  .footer a {
+    display: none;
+  }
+
+  body {
+    background: #fff;
+  }
+
+  .hero {
+    background: none;
+    color: var(--color-text);
+  }
+
+  .hero__eyebrow,
+  .hero__meta {
+    color: var(--color-muted);
+  }
+
+  .card {
+    box-shadow: none;
+    break-inside: avoid;
+  }
+}
