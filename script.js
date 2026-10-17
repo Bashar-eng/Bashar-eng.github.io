@@ -1,14 +1,16 @@
 /* ==========================================================
    Personal CV - Bashar Ayman Elazony
-   Design of Web-Based Systems, Assignment 2 (Interactive CV)
+   Design of Web-Based Systems, Assignments 2 & 3 (Interactive portfolio)
    ----------------------------------------------------------
-   Six JavaScript features, each in its own section below:
+   Seven UI features, each in its own section below (the three API
+   features of Assignment 3 are in api.js):
      1. Welcome message               (Option 5)
      2. Dark / light mode toggle      (Option 3)
      3. Show / hide sections          (Option 2)
      4. Interactive experience details (Option 6)
      5. Dynamic skills list           (Option 4)
      6. Contact form with validation  (Option 1)
+     7. Navigation scroll-spy         (Assignment 3 navigation)
 
    All code runs after the DOM has parsed, because this file is
    loaded with the `defer` attribute on the <script> tag.
@@ -271,4 +273,37 @@ function setupCollapseToggle(button, { showLabel, hideLabel }) {
     form.reset();
     fields.forEach((field) => showFieldError(field, ''));
   });
+})();
+
+/* ---------------------------------------------------------
+   7. Navigation scroll-spy (Assignment 3)
+   Highlights the menu link of the section currently on screen.
+   --------------------------------------------------------- */
+(function navScrollSpy() {
+  const links = Array.from(document.querySelectorAll('.nav ul a'));
+  const targets = links
+    .map((link) => document.querySelector(link.getAttribute('href')))
+    .filter(Boolean);
+  if (!targets.length || !('IntersectionObserver' in window)) return;
+
+  function setActive(id) {
+    links.forEach((link) => {
+      const active = link.getAttribute('href') === `#${id}`;
+      link.classList.toggle('is-active', active);
+      if (active) link.setAttribute('aria-current', 'true');
+      else link.removeAttribute('aria-current');
+    });
+  }
+
+  // A section counts as "current" while it crosses the middle of the viewport.
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) setActive(entry.target.id);
+      });
+    },
+    { rootMargin: '-45% 0px -50% 0px' }
+  );
+
+  targets.forEach((target) => observer.observe(target));
 })();
